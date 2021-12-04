@@ -15,17 +15,16 @@
         >
       </b-input-group-append>
     </b-input-group>
-
     <div class="grid-card" id="itemCard">
-      <div v-for="(characters, index) in characters" :key="index">
-        <CardCharacter
-          :name="characters.name"
-          :image="characters.image"
-          :species="characters.species"
-          :status="characters.status"
-          :idCharacter="characters.id"
+      <div v-for="(items, index) in items" :key="index">
+        <CardItem
+          :address="items.address.city_name"
+          :tittle="items.title"
+          :price="items.price"
+          :thumbnail="items.thumbnail"
+          :idItem="items.prices.id"
         >
-        </CardCharacter>
+        </CardItem>
       </div>
     </div>
   </div>
@@ -34,14 +33,17 @@
 <script>
 // @ is an alias to /src
 /* import HelloWorld from "@/components/HelloWorld.vue"; */
-
+import CardItem from "@/components/CardItem";
 export default {
   name: "Home",
-  components: {},
+  components: {
+    CardItem,
+  },
 
   data: function () {
     return {
       search: "",
+      items: [],
     };
   },
 
@@ -54,16 +56,16 @@ export default {
         item: this.search,
       };
       await this.$store.dispatch("getItemPage", params);
+      this.items = this.$store.state.Items;
+
+      console.log(this.$store.state.Items);
     },
-  },
-  computed() {
-    console.log("hiiiiiiiiiii");
   },
 };
 </script>
 
-<style lang="scss">
-  .grid-card {
+<style >
+.grid-card {
   height: 100%;
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(35rem, 1fr));

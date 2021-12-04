@@ -7,10 +7,14 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     Items:null,
+    item:null
   },
   mutations: {
     setItemPage(state, Items) {
       state.Items = Items;
+    },
+    setItem(state, Item) {
+      state.Item = Item;
     },
   },
   actions: {
@@ -21,25 +25,25 @@ export default new Vuex.Store({
       let response = await axios.get(
         `https://api.mercadolibre.com/sites/MCO/search`, {params}
       );
-      console.log(response);
       commit("setItemPage", response.data.results)
     },
+    async getItem({ commit }, idCharacter) {
+      let response = await axios.get(
+        `https://api.mercadolibre.com/items/${idCharacter}`
+      );
 
+      if (response.status == 200) {
+        commit("setItem", response.data);
+      }
+      console.log(response.data);
+
+    },
   },
   modules: {
 
 
 
-/*     async getCharacter({ commit }, idCharacter) {
-      let response = await axios.get(
-        `${url}${idCharacter}`
-      );
 
-      if (response.status == 200) {
-        commit("setCharacter", response.data);
-      }
-      return response.data;
-    }, */
 
   }
 })
