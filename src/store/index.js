@@ -35,7 +35,7 @@ export default new Vuex.Store({
       if (response.status == 200) {
         commit("setItem", response.data);
       }
-      console.log(response.data);
+  
 
     },
   },

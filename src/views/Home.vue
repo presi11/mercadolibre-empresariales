@@ -1,7 +1,6 @@
 <template>
   <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png" />
-
+  <div class="search">
     <b-input-group>
       <b-form-input
         type="text"
@@ -15,11 +14,12 @@
         >
       </b-input-group-append>
     </b-input-group>
+    </div>
     <div class="grid-card" id="itemCard">
       <div v-for="(items, index) in items" :key="index">
         <CardItem
           :address="items.address.city_name"
-          :tittle="items.title"
+          :title="items.title"
           :price="items.price"
           :thumbnail="items.thumbnail"
           :idItem="items.prices.id"
@@ -31,8 +31,8 @@
 </template>
 
 <script>
-// @ is an alias to /src
-/* import HelloWorld from "@/components/HelloWorld.vue"; */
+
+
 import CardItem from "@/components/CardItem";
 export default {
   name: "Home",
@@ -47,9 +47,6 @@ export default {
     };
   },
 
-  /*   async created() {
-    this.getItems();
-  }, */
   methods: {
     async getItems() {
       let params = {
@@ -58,7 +55,6 @@ export default {
       await this.$store.dispatch("getItemPage", params);
       this.items = this.$store.state.Items;
 
-      console.log(this.$store.state.Items);
     },
   },
 };
@@ -71,5 +67,11 @@ export default {
   grid-template-columns: repeat(auto-fit, minmax(35rem, 1fr));
   grid-template-rows: auto;
   justify-items: center;
+}
+
+.search{
+  margin: auto;
+  width: 50%;
+  padding: 10px;
 }
 </style>

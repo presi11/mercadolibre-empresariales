@@ -1,10 +1,10 @@
 <template>
   <div class="about">
     <h1>Información del producto </h1>
-    <h1>{{item.title}}</h1>
+   
 
-    <h2>{{item.id}}</h2>
-
+<h2>{{title}}</h2>
+    <h3>COP: {{price}}</h3>
     <img :src="img" alt="">
   </div>
 </template>
@@ -16,7 +16,8 @@ export default {
     return {
       item: null,
       img:null,
-      title:null
+      title:null,
+      price:null,
     };
   },
 
@@ -27,9 +28,9 @@ export default {
       
     );
     this.item = this.$store.state.Item
-    this.img = this.item.thumbnail
+    this.img = this.item.pictures[0].url
     this.title = this.item.title
-
+    this.price =this.item.price
   },
 };
 </script>
